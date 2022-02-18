@@ -1,14 +1,26 @@
 const router = require("express").Router();
-const { Post, User } = require("../../models");
+const { Post, User, Comment } = require("../../models");
 
 // Get all Posts
 router.get("/", (req, res) => {
   Post.findAll({
-    attributes: ["id", "post_url", "title", "created_at"],
-    // Changes the order of posts displayed
     order: [["created_at", "DESC"]],
-    // JOIN sequelize statement for User table
-    include: [{ model: User, attributes: ["username"] }],
+    attributes: ["id", "post_url", "title", "created_at"],
+    include: [
+      // include the Comment model here:
+      {
+        model: Comment,
+        attributes: ["id", "comment_text", "post_id", "user_id", "created_at"],
+        include: {
+          model: User,
+          attributes: ["username"],
+        },
+      },
+      {
+        model: User,
+        attributes: ["username"],
+      },
+    ],
   })
     .then((dbPostData) => res.json(dbPostData))
     .catch((err) => {
@@ -24,6 +36,15 @@ router.get("/:id", (req, res) => {
     },
     attributes: ["id", "post_url", "title", "created_at"],
     include: [
+      // include the Comment model here:
+      {
+        model: Comment,
+        attributes: ["id", "comment_text", "post_id", "user_id", "created_at"],
+        include: {
+          model: User,
+          attributes: ["username"],
+        },
+      },
       {
         model: User,
         attributes: ["username"],
