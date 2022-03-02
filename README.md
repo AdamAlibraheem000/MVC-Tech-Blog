@@ -5,4 +5,7 @@ Purpose: Blog that used to make posts & add comments about tech topics. User are
 
 Technologies used: Model-View-Controller layout. Handlebars.js, node.js, sequelize.js, mysql, dotenv and bcrypt.
 
+Deployed website
+https://serene-chamber-92098.herokuapp.com/
+
 ![image](https://user-images.githubusercontent.com/47041038/156435122-dfcedb1e-398e-4688-a5ae-4c76e0bffa53.png)
